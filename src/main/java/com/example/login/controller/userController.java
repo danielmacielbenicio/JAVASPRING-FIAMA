@@ -1,7 +1,9 @@
 package com.example.login.controller;
 
+import com.example.login.dto.UserRequestDTO;
 import com.example.login.entity.User;
 import com.example.login.repositories.UserRepo;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +20,9 @@ public class userController {
     UserRepo userRepo;
 
     @PostMapping(value = "/user/cadastro")
-    public ResponseEntity<?> saveUser(@RequestBody User user){
+    public ResponseEntity<?> saveUser(@Valid @RequestBody UserRequestDTO user){
         User usuario = new User(user.getName(), user.getEmail(), user.getPassword());
-        userRepo.save(user);
+        userRepo.save(usuario);
         return ResponseEntity.ok(usuario);
     }
 
